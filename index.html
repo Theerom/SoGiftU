@@ -105,62 +105,41 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
             z-index: 2;
         }
-        .form-container {
+        .cta-section {
             background: #f8f9fa;
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
             margin-top: 20px;
-            text-align: left;
+            text-align: center;
             border: 1px solid #e9ecef;
         }
-        .form-container h3 {
+        .cta-section h3 {
             color: #004c91;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus, .form-group select:focus {
-            border-color: #0071ce;
-            outline: none;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
         }
         .btn {
             background: linear-gradient(to right, #0071ce, #004c91);
             color: white;
             border: none;
-            padding: 18px 30px;
-            font-size: 1.2rem;
+            padding: 22px 40px;
+            font-size: 1.5rem;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0, 113, 206, 0.3);
         }
         .btn:hover {
             background: linear-gradient(to right, #004c91, #0071ce);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 113, 206, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 113, 206, 0.4);
         }
         .btn:disabled {
             opacity: 0.7;
@@ -175,6 +154,7 @@
             color: #004c91;
             margin-bottom: 15px;
             text-align: center;
+            font-size: 1.5rem;
         }
         .benefits ul {
             list-style: none;
@@ -201,6 +181,7 @@
         .testimonial p {
             font-style: italic;
             margin-bottom: 10px;
+            font-size: 1.1rem;
         }
         .testimonial .author {
             font-weight: bold;
@@ -258,7 +239,8 @@
         @media (max-width: 768px) {
             .header h1 { font-size: 1.8rem; }
             .content { padding: 30px 20px; }
-            .form-container { padding: 20px; }
+            .cta-section { padding: 30px 20px; }
+            .btn { padding: 20px 30px; font-size: 1.3rem; }
             .counter { flex-direction: column; align-items: center; }
             body { padding: 10px; }
         }
@@ -292,37 +274,11 @@
                 </div>
             </div>
             
-            <div class="form-container">
-                <h3>ENTER THE GIVEAWAY NOW</h3>
-                <form id="giveaway-form">
-                    <div class="form-group">
-                        <label for="fullname"><i class="fas fa-user"></i> Full Name</label>
-                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your best email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirm-email"><i class="fas fa-envelope"></i> Confirm Email</label>
-                        <input type="email" id="confirm-email" name="confirm-email" placeholder="Confirm your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="age"><i class="fas fa-birthday-cake"></i> Are you 18 or older?</label>
-                        <select id="age" name="age" required>
-                            <option value="">Select Option</option>
-                            <option value="yes">Yes, I am 18+</option>
-                            <option value="no">No, I am under 18</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn" id="submit-btn">
-                        <i class="fas fa-ticket-alt"></i> ENTER TO WIN $500 WALMART GIFT CARD
-                    </button>
-                </form>
+            <div class="cta-section">
+                <h3>CLICK BELOW TO ENTER INSTANTLY!</h3>
+                <button class="btn" id="enter-btn">
+                    <i class="fas fa-ticket-alt"></i> ENTER TO WIN $500 WALMART GIFT CARD
+                </button>
                 
                 <div class="disclaimer">
                     <p><i class="fas fa-exclamation-circle"></i> <strong>Note:</strong> This is a promotional giveaway. No purchase necessary. Winners will be selected randomly and notified via email within 48 hours of the giveaway ending. Must be 18+ to enter. One entry per person.</p>
@@ -378,28 +334,13 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // FIXED: Form submission - Directly triggers content locker
-        document.getElementById('giveaway-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const confirmEmail = document.getElementById('confirm-email').value;
-            const age = document.getElementById('age').value;
-            const submitBtn = document.getElementById('submit-btn');
-            
-            // Quick validation (makes it feel real)
-            if (email !== confirmEmail) {
-                alert("Emails do not match. Please check and try again.");
-                return;
-            }
-            if (age !== "yes") {
-                alert("You must be 18 or older to enter this giveaway.");
-                return;
-            }
+        // Direct button click to trigger content locker
+        document.getElementById('enter-btn').addEventListener('click', function() {
+            const enterBtn = document.getElementById('enter-btn');
             
             // Brief button state change (0.5 seconds) then trigger locker
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
-            submitBtn.disabled = true;
+            enterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING ENTRY...';
+            enterBtn.disabled = true;
             
             // Wait a moment for visual feedback, then show locker
             setTimeout(() => {
